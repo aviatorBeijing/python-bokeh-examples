@@ -19,7 +19,10 @@ query = ("https://data.lacity.org/resource/mgue-vbsx.json?"
     "&call_type_code=507P"
     "&$select=date_trunc_ymd(dispatch_date)%20AS%20date%2C%20count(*)"
     "&$order=date")
+#Notice that the key in the JSON dict has to be "date", and format has to match definition of a date timestamp.
+# Otherwise, pandas won't recognize it, and parseing will be wrong.
 raw_data = pd.read_json(query)
+assert( "date" in raw_data.columns )
 
 # Augment the data frame with the day of the week and the start of the week that it's in.
 # This will make more sense soon...
@@ -61,7 +64,7 @@ source = ColumnDataSource(
 )    
 
 # Configure the region of plot
-output_file('.\\all-las-parties.html')
+output_file('all-las-parties.html')
 TOOLS = 'box_zoom,box_select,reset,hover'
 fig=figure( title='\"Party\" Disturbance Calls in LA', x_range=weeks, y_range=list(reversed(days)), tools=TOOLS)
 fig.plot_width, fig.plot_height=900, 400
