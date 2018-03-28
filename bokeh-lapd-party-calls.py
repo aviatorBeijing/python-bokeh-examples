@@ -7,7 +7,7 @@ import pandas as pd
 import datetime
 import urllib
  
-from bokeh.plotting import ColumnDataSource, figure, output_file
+from bokeh.plotting import ColumnDataSource, figure, output_file,show
 from bokeh.models import HoverTool, Circle
 from collections import OrderedDict
 
